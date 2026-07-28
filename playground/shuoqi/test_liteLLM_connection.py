@@ -12,7 +12,7 @@ print("MODEL:", os.getenv("CHAT_MODEL"))
 
 client = OpenAI(
     api_key=os.getenv("LITELLM_API_KEY"),
-    base_url=os.getenv("LITELLM_BASE_URL"),
+    base_url=os.getenv("LITELLM_API_BASE"),
 )
 
 response = client.chat.completions.create(
