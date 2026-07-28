@@ -50,6 +50,13 @@ class Settings(BaseSettings):
     chunk_size: int = 800          # characters per chunk (once you chunk)
     chunk_overlap: int = 150       # characters shared between neighbours
 
+    # --- PDF extractor ------------------------------------------------------
+    # One of: pypdf, pdfplumber, pymupdf, docling, marker, grobid.
+    # You must `pip install` the corresponding package (pypdf comes pre-installed).
+    # Run `python scripts/compare_extractors.py your.pdf` to compare them side-by-side.
+    extractor: str = "pypdf"
+    grobid_url: str = "http://localhost:8070"
+
     # --- Data folders -------------------------------------------------------
     in_dir: str = "data/in"        # put the PDF here; /ingest reads from it
     out_dir: str = "data/out"      # every /query answer is written here as JSON
