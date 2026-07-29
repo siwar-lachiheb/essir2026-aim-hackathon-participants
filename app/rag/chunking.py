@@ -70,6 +70,8 @@ def chunk_pages(pages: list[str]) -> list[Chunk]:
     buf_start = 0
     char_pos = 0
 
+    buf_sec_idx = 0
+
     for sent in sentences:
         sent = sent.strip()
         if not sent:
@@ -80,12 +82,16 @@ def chunk_pages(pages: list[str]) -> list[Chunk]:
         if found >= 0:
             char_pos = found
 
-        if buf and buf_len + len(sent) + 1 > max_size:
+        sent_sec_idx = bisect.bisect_right(section_offsets, char_pos) - 1
+        section_changed = buf and sent_sec_idx != buf_sec_idx
+        size_exceeded = buf and buf_len + len(sent) + 1 > max_size
+
+        # Flush buffer on section boundary or size limit
+        if section_changed or size_exceeded:
             page = _lookup(buf_start, page_offsets)
-            sec_idx = bisect.bisect_right(section_offsets, buf_start) - 1
             chunks.append(Chunk(
                 text=" ".join(buf), page=page, index=idx,
-                section=section_titles[sec_idx],
+                section=section_titles[buf_sec_idx],
             ))
             idx += 1
             buf.clear()
@@ -94,16 +100,16 @@ def chunk_pages(pages: list[str]) -> list[Chunk]:
 
         if not buf:
             buf_start = char_pos
+            buf_sec_idx = sent_sec_idx
         buf.append(sent)
         buf_len += len(sent) + (1 if buf_len else 0)
         char_pos += len(sent)
 
     if buf:
         page = _lookup(buf_start, page_offsets)
-        sec_idx = bisect.bisect_right(section_offsets, buf_start) - 1
         chunks.append(Chunk(
             text=" ".join(buf), page=page, index=idx,
-            section=section_titles[sec_idx],
+            section=section_titles[buf_sec_idx],
         ))
 
     return chunks
