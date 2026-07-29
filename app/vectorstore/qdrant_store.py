@@ -53,15 +53,29 @@ class VectorStore:
 
     # --- read ---------------------------------------------------------------
     def search(self, vector: list[float], top_k: int) -> list[models.ScoredPoint]:
-        # TODO(level-1): plain dense search. Consider hybrid (dense + sparse/BM25),
-        #                which Qdrant supports with named vectors + Query API.
-        # TODO(level-3): pass a query_filter to scope retrieval to part of the doc.
         return self.client.search(
             collection_name=self.collection,
             query_vector=vector,
             limit=top_k,
             with_payload=True,
         )
+
+    def scroll_all(self) -> list[models.Record]:
+        """Fetch every point in the collection (no vector search)."""
+        records: list[models.Record] = []
+        offset = None
+        while True:
+            batch, next_offset = self.client.scroll(
+                collection_name=self.collection,
+                limit=100,
+                offset=offset,
+                with_payload=True,
+            )
+            records.extend(batch)
+            if next_offset is None:
+                break
+            offset = next_offset
+        return records
 
 
 @lru_cache
