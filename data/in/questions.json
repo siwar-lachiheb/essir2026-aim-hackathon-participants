@@ -1,0 +1,17 @@
+{
+  "level_1": [
+    {"question": "What algorithm does GraphRAG use to detect graph communities?"},
+    {"question": "What distance metric was used to cluster claims for the diversity score?"},
+    {"question": "How many nodes and edges are in the News dataset graph?"}
+  ],
+  "level_2": [
+    {"question": "What context window size did the authors choose?"},
+    {"question": "Why that size?"},
+    {"question": "Did it win on every criterion?"}
+  ],
+  "level_3": [
+    {"question": "For the News dataset, how many context tokens does the root-level condition require compared to source-text summarization, and what performance advantage over vector RAG does it retain at that cost?"},
+    {"question": "Section 3.1.1 describes a trade-off in choosing chunk size: what is that trade-off, what technique does the paper introduce to work around it, and what chunk size was ultimately used for the experiments?"},
+    {"question": "Experiment 2 was intended to validate Experiment 1: on which dataset and metric did the two disagree?"}
+  ]
+}
