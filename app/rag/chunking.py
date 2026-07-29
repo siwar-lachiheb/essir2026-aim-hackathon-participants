@@ -1,16 +1,26 @@
-"""Turn PDF pages into the units you index.
+"""Turn PDF pages into retrievable units.
 
-**Chunking is OFF by default.** Out of the box each page becomes exactly one vector — no
-splitting, no overlap. That is the simplest thing that runs, and it is deliberately weak:
-a whole page is often too long for the embedding model (it gets truncated) and too coarse
-to retrieve precisely.
-
-Implementing real chunking is one of the first things that will improve your Level-1 scores.
+Section-aware, sentence-based chunking using NLTK's Punkt tokenizer.
+Pages are concatenated, section headings are detected, text is split into
+sentences, and sentences are grouped into chunks of up to ``chunk_size``
+characters.  Each chunk carries its page number and section title.
 """
 
 from __future__ import annotations
 
+import bisect
+import re
 from dataclasses import dataclass
+
+import nltk
+from nltk.tokenize import sent_tokenize
+
+from ..config import get_settings
+
+# Download Punkt data once (no-op after the first time)
+nltk.download("punkt_tab", quiet=True)
+
+_HEADING_RE = re.compile(r"\n(\d+(?:\.\d+)*)\s+([A-Z][^\n]+)")
 
 
 @dataclass
@@ -18,27 +28,82 @@ class Chunk:
     text: str
     page: int      # 1-indexed
     index: int     # position within the document
+    section: str = ""
+
+
+def _build_full_text(pages: list[str]) -> tuple[str, list[int]]:
+    """Concatenate pages and return (full_text, page_char_offsets)."""
+    offsets: list[int] = []
+    pos = 0
+    for text in pages:
+        offsets.append(pos)
+        pos += len(text) + 1
+    return "\n".join(pages), offsets
+
+
+def _detect_sections(full_text: str) -> list[tuple[int, str]]:
+    """Return (char_offset, section_title) pairs."""
+    sections: list[tuple[int, str]] = [(0, "Preamble")]
+    for m in _HEADING_RE.finditer(full_text):
+        sections.append((m.start(), f"{m.group(1)} {m.group(2).strip()}"))
+    return sections
+
+
+def _lookup(pos: int, offsets: list[int]) -> int:
+    """Binary-search *pos* in sorted *offsets*, return the 1-indexed bucket."""
+    return bisect.bisect_right(offsets, pos)
 
 
 def chunk_pages(pages: list[str]) -> list[Chunk]:
-    """Default: one chunk per page (no chunking).
+    full_text, page_offsets = _build_full_text(pages)
+    sections = _detect_sections(full_text)
+    section_offsets = [o for o, _ in sections]
+    section_titles = [t for _, t in sections]
 
-    TODO(level-1): THIS IS WHERE CHUNKING GOES, and right now there is none. Split each
-      page into retrievable units — by tokens, by sentences/paragraphs, or structure-aware
-      (headings, tables). Keep the correct `page` on each piece so citations still line up.
-      Good chunking is usually the single biggest win for retrieval quality.
-    TODO(level-3): a flat chunk loses where it sits in the document. Section titles, or a
-      small/large ("parent") hierarchy, help a lot with whole-document questions.
+    sentences = sent_tokenize(full_text)
+    max_size = get_settings().chunk_size
 
-    The settings `chunk_size` / `chunk_overlap` exist for when you implement this — they are
-    unused by the baseline.
-    """
     chunks: list[Chunk] = []
     idx = 0
-    for page_no, text in enumerate(pages, start=1):
-        text = text.strip()
-        if not text:
+    buf: list[str] = []
+    buf_len = 0
+    buf_start = 0
+    char_pos = 0
+
+    for sent in sentences:
+        sent = sent.strip()
+        if not sent:
             continue
-        chunks.append(Chunk(text=text, page=page_no, index=idx))
-        idx += 1
+
+        # Locate this sentence in the full text
+        found = full_text.find(sent, char_pos)
+        if found >= 0:
+            char_pos = found
+
+        if buf and buf_len + len(sent) + 1 > max_size:
+            page = _lookup(buf_start, page_offsets)
+            sec_idx = bisect.bisect_right(section_offsets, buf_start) - 1
+            chunks.append(Chunk(
+                text=" ".join(buf), page=page, index=idx,
+                section=section_titles[sec_idx],
+            ))
+            idx += 1
+            buf.clear()
+            buf_len = 0
+            buf_start = char_pos
+
+        if not buf:
+            buf_start = char_pos
+        buf.append(sent)
+        buf_len += len(sent) + (1 if buf_len else 0)
+        char_pos += len(sent)
+
+    if buf:
+        page = _lookup(buf_start, page_offsets)
+        sec_idx = bisect.bisect_right(section_offsets, buf_start) - 1
+        chunks.append(Chunk(
+            text=" ".join(buf), page=page, index=idx,
+            section=section_titles[sec_idx],
+        ))
+
     return chunks
