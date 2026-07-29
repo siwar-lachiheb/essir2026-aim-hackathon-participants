@@ -29,7 +29,9 @@ SYSTEM_PROMPT = (
 
 
 def _build_messages(question: str, contexts: list[Context], history: list[Message]) -> list[Message]:
-    context_block = "\n\n".join(f"[page {c.page}] {c.text}" for c in contexts) or "(no context retrieved)"
+    context_block = "\n\n".join(
+        f"[Section: {c.section}] [page {c.page}]\n{c.text}" for c in contexts
+    ) or "(no context retrieved)"
     messages: list[Message] = [{"role": "system", "content": SYSTEM_PROMPT}]
     # Prior turns give the model the conversation so far (Level 2). Retrieval still
     # needs the rewritten query — history in the prompt is necessary but not sufficient.
@@ -79,7 +81,7 @@ def answer(req: QueryRequest) -> QueryResponse:
     now = datetime.now(UTC)
     started = time.perf_counter()
 
-    contexts = retrieve(req.question, top_k, history)
+    contexts = retrieve(req.question, top_k, history, level=req.level)
     messages = _build_messages(req.question, contexts, history)
 
     try:
