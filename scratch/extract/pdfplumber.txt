@@ -1,0 +1,45 @@
+Anil, R., Borgeaud, S., Wu, Y., Alayrac, J.-B., Yu, J., Soricut, R., Schalkwyk, J., Dai, A. M.,
+Hauth,A.,etal.(2023). Gemini: afamilyofhighlycapablemultimodalmodels. arXivpreprint
+arXiv:2312.11805.
+Baek, J., Aji, A.F., andSaffari, A.(2023). Knowledge-augmentedlanguagemodelpromptingfor
+zero-shotknowledgegraphquestionanswering. arXivpreprintarXiv:2306.04136.
+Ban,T.,Chen,L.,Wang,X.,andChen,H.(2023).Fromquerytoolstocausalarchitects:Harnessing
+largelanguagemodelsforadvancedcausaldiscoveryfromdata.
+Barlaug,N.andGulla,J.A.(2021). Neuralnetworksforentitymatching: Asurvey. ACMTransac-
+tionsonKnowledgeDiscoveryfromData(TKDD),15(3):1–37.
+Baumel,T.,Eyal,M.,andElhadad,M.(2018). Queryfocusedabstractivesummarization: Incorpo-
+rating query relevance, multi-document coverage, and summary length constraints into seq2seq
+models. arXivpreprintarXiv:1801.07704.
+Blondel, V. D., Guillaume, J.-L., Lambiotte, R., and Lefebvre, E. (2008). Fast unfolding of
+communities in large networks. Journal of statistical mechanics: theory and experiment,
+2008(10):P10008.
+Brown,T.,Mann,B.,Ryder,N.,Subbiah,M.,Kaplan,J.D.,Dhariwal,P.,Neelakantan,A.,Shyam,
+P., Sastry, G., Askell, A., et al. (2020). Language models are few-shot learners. Advances in
+neuralinformationprocessingsystems,33:1877–1901.
+Cheng, X., Luo, D., Chen, X., Liu, L., Zhao, D., and Yan, R. (2024). Lift yourself up: Retrieval-
+augmented text generation with self-memory. Advances in Neural Information Processing Sys-
+tems,36.
+Christen,P.andChristen,P.(2012). Thedatamatchingprocess. Springer.
+Chung, J., Pedigo, B. D., Bridgeford, E. W., Varjavand, B. K., Helm, H. S., and Vogelstein, J. T.
+(2019). Graspy:Graphstatisticsinpython. JournalofMachineLearningResearch,20(158):1–7.
+Dang,H.T.(2006). Duc2005:Evaluationofquestion-focusedsummarizationsystems. InProceed-
+ingsoftheWorkshoponTask-FocusedSummarizationandQuestionAnswering,pages48–55.
+Elmagarmid, A. K., Ipeirotis, P. G., and Verykios, V. S. (2006). Duplicate record detection: A
+survey. IEEETransactionsonknowledgeanddataengineering,19(1):1–16.
+Es, S., James, J., Espinosa-Anke, L., and Schockaert, S. (2023). Ragas: Automated evaluation of
+retrievalaugmentedgeneration. arXivpreprintarXiv:2309.15217.
+Etzioni,O.,Cafarella,M.,Downey,D.,Kok,S.,Popescu,A.-M.,Shaked,T.,Soderland,S.,Weld,
+D. S., and Yates, A. (2004). Web-scale information extraction in knowitall: (preliminary re-
+sults). InProceedingsofthe13thInternationalConferenceonWorldWideWeb,WWW’04,page
+100–110,NewYork,NY,USA.AssociationforComputingMachinery.
+Feng,Z.,Feng,X.,Zhao,D.,Yang,M.,andQin,B.(2023).Retrieval-generationsynergyaugmented
+largelanguagemodels. arXivpreprintarXiv:2310.05149.
+Fortunato,S.(2010). Communitydetectioningraphs. Physicsreports,486(3-5):75–174.
+Gao,Y.,Xiong,Y.,Gao,X.,Jia,K.,Pan,J.,Bi,Y.,Dai,Y.,Sun,J.,andWang,H.(2023). Retrieval-
+augmentedgenerationforlargelanguagemodels: Asurvey. arXivpreprintarXiv:2312.10997.
+He,X.,Tian,Y.,Sun,Y.,Chawla,N.V.,Laurent,T.,LeCun,Y.,Bresson,X.,andHooi,B.(2024).
+G-retriever: Retrieval-augmented generation for textual graph understanding and question an-
+swering. arXivpreprintarXiv:2402.07630.
+Huang, J., Chen, X., Mishra, S., Zheng, H. S., Yu, A. W., Song, X., and Zhou, D. (2023). Large
+languagemodelscannotself-correctreasoningyet. arXivpreprintarXiv:2310.01798.
+13

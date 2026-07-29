@@ -1,0 +1,45 @@
+Anil, R., Borgeaud, S., Wu, Y ., Alayrac, J.-B., Yu, J., Soricut, R., Schalkwyk, J., Dai, A. M.,
+Hauth, A., et al. (2023). Gemini: a family of highly capable multimodal models. arXiv preprint
+arXiv:2312.11805.
+Baek, J., Aji, A. F., and Saffari, A. (2023). Knowledge-augmented language model prompting for
+zero-shot knowledge graph question answering. arXiv preprint arXiv:2306.04136.
+Ban, T., Chen, L., Wang, X., and Chen, H. (2023). From query tools to causal architects: Harnessing
+large language models for advanced causal discovery from data.
+Barlaug, N. and Gulla, J. A. (2021). Neural networks for entity matching: A survey. ACM Transac-
+tions on Knowledge Discovery from Data (TKDD), 15(3):1–37.
+Baumel, T., Eyal, M., and Elhadad, M. (2018). Query focused abstractive summarization: Incorpo-
+rating query relevance, multi-document coverage, and summary length constraints into seq2seq
+models. arXiv preprint arXiv:1801.07704.
+Blondel, V . D., Guillaume, J.-L., Lambiotte, R., and Lefebvre, E. (2008). Fast unfolding of
+communities in large networks. Journal of statistical mechanics: theory and experiment ,
+2008(10):P10008.
+Brown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Neelakantan, A., Shyam,
+P., Sastry, G., Askell, A., et al. (2020). Language models are few-shot learners. Advances in
+neural information processing systems, 33:1877–1901.
+Cheng, X., Luo, D., Chen, X., Liu, L., Zhao, D., and Yan, R. (2024). Lift yourself up: Retrieval-
+augmented text generation with self-memory. Advances in Neural Information Processing Sys-
+tems, 36.
+Christen, P. and Christen, P. (2012). The data matching process. Springer.
+Chung, J., Pedigo, B. D., Bridgeford, E. W., Varjavand, B. K., Helm, H. S., and V ogelstein, J. T.
+(2019). Graspy: Graph statistics in python. Journal of Machine Learning Research, 20(158):1–7.
+Dang, H. T. (2006). Duc 2005: Evaluation of question-focused summarization systems. InProceed-
+ings of the Workshop on Task-Focused Summarization and Question Answering, pages 48–55.
+Elmagarmid, A. K., Ipeirotis, P. G., and Verykios, V . S. (2006). Duplicate record detection: A
+survey. IEEE Transactions on knowledge and data engineering, 19(1):1–16.
+Es, S., James, J., Espinosa-Anke, L., and Schockaert, S. (2023). Ragas: Automated evaluation of
+retrieval augmented generation. arXiv preprint arXiv:2309.15217.
+Etzioni, O., Cafarella, M., Downey, D., Kok, S., Popescu, A.-M., Shaked, T., Soderland, S., Weld,
+D. S., and Yates, A. (2004). Web-scale information extraction in knowitall: (preliminary re-
+sults). In Proceedings of the 13th International Conference on World Wide Web, WWW ’04, page
+100–110, New York, NY , USA. Association for Computing Machinery.
+Feng, Z., Feng, X., Zhao, D., Yang, M., and Qin, B. (2023). Retrieval-generation synergy augmented
+large language models. arXiv preprint arXiv:2310.05149.
+Fortunato, S. (2010). Community detection in graphs. Physics reports, 486(3-5):75–174.
+Gao, Y ., Xiong, Y ., Gao, X., Jia, K., Pan, J., Bi, Y ., Dai, Y ., Sun, J., and Wang, H. (2023). Retrieval-
+augmented generation for large language models: A survey. arXiv preprint arXiv:2312.10997.
+He, X., Tian, Y ., Sun, Y ., Chawla, N. V ., Laurent, T., LeCun, Y ., Bresson, X., and Hooi, B. (2024).
+G-retriever: Retrieval-augmented generation for textual graph understanding and question an-
+swering. arXiv preprint arXiv:2402.07630.
+Huang, J., Chen, X., Mishra, S., Zheng, H. S., Yu, A. W., Song, X., and Zhou, D. (2023). Large
+language models cannot self-correct reasoning yet. arXiv preprint arXiv:2310.01798.
+13
