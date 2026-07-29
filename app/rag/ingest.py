@@ -185,7 +185,7 @@ def ingest(filename: str | None = None, reset: bool = False) -> IngestResponse:
         models.PointStruct(
             id=str(uuid.uuid5(_NAMESPACE, f"{path.name}:{c.index}")),
             vector=vec,
-            payload={"text": c.text, "page": c.page, "source": path.name},
+            payload={"text": c.text, "page": c.page, "section": c.section, "source": path.name},
         )
         for c, vec in zip(chunks, vectors)
     ]
