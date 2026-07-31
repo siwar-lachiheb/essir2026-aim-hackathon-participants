@@ -192,21 +192,38 @@ def _retrieve_sections(question: str, top_k_per_section: int = 2) -> list[Contex
 # Level 3 router — swap this to change routing logic
 # ---------------------------------------------------------------------------
 
-def _retrieve_level3(question: str, top_k: int) -> list[Context]:
-    """Route Level 3 questions to the appropriate strategy.
+_ROUTE_PROMPT = (
+    "You are a query router. Given a question about a document, classify it "
+    "into exactly one category.\n\n"
+    "- SECTIONS: the question asks for a broad overview, full summary, or "
+    "coverage of all/many parts of the document.\n"
+    "- MULTIQUERY: the question requires combining evidence from multiple "
+    "specific parts of the document (comparison, multi-hop reasoning, "
+    "cross-referencing data).\n\n"
+    "Reply with a single word: SECTIONS or MULTIQUERY.\n\n"
+    "Question: {question}\n\nCategory:"
+)
 
-    Current: use multi-query by default. If the question asks about
-    sections/structure/summary of the whole document, use section fetch.
-    Swap this function to use an LLM classifier instead.
-    """
-    structure_keywords = [
-        "each section", "every section", "all sections",
-        "summarize the document", "summarise the document",
-        "overview of the paper", "structure of the paper",
-        "contribution of each",
-    ]
-    q_lower = question.lower()
-    if any(kw in q_lower for kw in structure_keywords):
+
+def _classify_level3(question: str) -> str:
+    """Ask the LLM whether the question needs sections or multiquery."""
+    try:
+        client = get_client()
+        raw = client.chat([{
+            "role": "user",
+            "content": _ROUTE_PROMPT.format(question=question),
+        }]).strip().upper()
+        if "SECTIONS" in raw:
+            return "sections"
+        return "multiquery"
+    except Exception:
+        return "multiquery"
+
+
+def _retrieve_level3(question: str, top_k: int) -> list[Context]:
+    """Route Level 3 questions via LLM classification."""
+    strategy = _classify_level3(question)
+    if strategy == "sections":
         return _retrieve_sections(question)
     return _retrieve_multiquery(question, top_k)
 
